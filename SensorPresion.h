@@ -3,7 +3,7 @@
 
 #include "SensorBase.h"
 
-class SensorPresion : SensorBase {
+class SensorPresion : public SensorBase {
 
 };
 

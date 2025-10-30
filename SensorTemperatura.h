@@ -3,8 +3,9 @@
 
 #include "SensorBase.h"
 
-class SensorTemperatura : SensorBase {
-
+class SensorTemperatura : public SensorBase {
+    private:
+        
 };
 
 #endif 
