@@ -6,7 +6,6 @@
 class SensorBase {
     protected:
         char nombre[50];
-
     public:
         // Constructor
         SensorBase(const char* nombreSensor) {
