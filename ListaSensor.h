@@ -1,3 +1,6 @@
+#ifndef LISTASENSOR_H
+#define LISTASENSOR_H
+
 #include <iostream>
 
 template <typename T>
@@ -80,3 +83,5 @@ class ListaSensor {
             return false;
         }
 };
+
+#endif
