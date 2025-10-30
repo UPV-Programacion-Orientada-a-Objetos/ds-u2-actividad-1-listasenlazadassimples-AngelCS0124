@@ -47,8 +47,6 @@ public:
         std::cout << "Eliminando lectura más baja..." << std::endl;
         // Una vez que se encuentra, se elimina del historial
         historial.eliminarValor(lecturaMasBaja);
-
-        std::cout << "Procesamiento completado (eliminación pendiente)" << std::endl;
     }
 
     void mostrarInfo() const override {
