@@ -82,6 +82,47 @@ class ListaSensor {
             }
             return false;
         }
+
+        int obtenerTamanio() const {
+            int contador = 0;
+            Nodo<T>* actual = cabeza;
+
+            while (actual != nullptr) {
+                contador++;
+                actual = actual->sig;
+            }
+            return contador;
+        }
+
+        bool eliminarValor(T valor) {
+            if (cabeza == nullptr) return false;
+            
+            if (cabeza->dato == valor) {
+                Nodo<T>* temp = cabeza;
+                cabeza = cabeza->sig;
+                std::cout << "Nodo eliminado: " << temp->dato << std::endl;
+                delete temp;
+                return true;
+            }
+            
+            Nodo<T>* actual = cabeza;
+            while (actual->sig != nullptr && actual->sig->dato != valor) {
+                actual = actual->sig;
+            }
+            
+            if (actual->sig == nullptr) {
+                std::cout << "Valor no encontrado: " << valor << std::endl;
+                return false;
+            }
+            
+            Nodo<T>* temp = actual->sig;
+            actual->sig = temp->sig;
+            std::cout << "Nodo eliminado: " << temp->dato << std::endl;
+            delete temp;
+            return true;
+        }
+
+        Nodo<T>* obtenerCabeza() const { return cabeza; }
 };
 
 #endif

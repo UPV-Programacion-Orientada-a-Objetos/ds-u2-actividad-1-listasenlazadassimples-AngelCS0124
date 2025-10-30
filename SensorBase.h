@@ -13,7 +13,7 @@ class SensorBase {
         virtual void procesarLectura() = 0;
         virtual void mostrarInfo() const = 0;
 
-        const char* obtenerNombre() const;
+        const char* obtenerNombre() const { return nombre; }
 };
 
 #endif 
