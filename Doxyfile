@@ -1,0 +1,11 @@
+   PROJECT_NAME           = "Sistema IoT Monitoreo Polimórfico"
+   PROJECT_BRIEF          = "Sistema de sensores con ESP32"
+   OUTPUT_DIRECTORY       = ./docs
+   INPUT                  = .
+   FILE_PATTERNS          = *.h *.cpp
+   RECURSIVE              = NO
+   EXTRACT_ALL            = YES
+   EXTRACT_PRIVATE        = YES
+   EXTRACT_STATIC         = YES
+   GENERATE_LATEX         = NO
+   GENERATE_HTML          = YES

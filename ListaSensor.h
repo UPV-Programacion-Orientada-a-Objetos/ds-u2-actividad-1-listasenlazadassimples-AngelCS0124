@@ -3,22 +3,50 @@
 
 #include <iostream>
 
-// Definición del nodo con dato y sig
+/**
+ * @file ListaSensor.h
+ * @brief Implementación de lista enlazada simple genérica mediante templates
+ * @author Angel Gabriel Coronado Sánchez
+ * @date 2025
+ */
+
+/**
+ * @struct Nodo
+ * @brief Nodo de lista enlazada simple con tipo de dato genérico
+ * @tparam T Tipo de dato que almacenará el nodo
+ */
 template <typename T>
 struct Nodo {
-    T dato;
-    Nodo <T>* sig;
+    T dato;         ///< Valor almacenado en el nodo
+    Nodo<T>* sig;   ///< Puntero al siguiente nodo en la lista
 };
 
+/**
+ * @class ListaSensor
+ * @brief Lista enlazada simple genérica para almacenar lecturas de sensores
+ * @tparam T Tipo de dato que almacenará la lista (int, float, etc.)
+ * 
+ * Implementa una lista enlazada simple con operaciones básicas de inserción,
+ * búsqueda, eliminación y consulta. Gestiona automáticamente la memoria
+ * mediante constructores de copia y destructores.
+ */
 template <typename T>
 class ListaSensor {
     private:
-        // Puntero a la cabeza de la lista
-        Nodo<T>* cabeza;
+        Nodo<T>* cabeza; ///< Puntero al primer nodo de la lista
+        
     public:
-        // Constructor con inicialización de cabeza a nullptr
+        /**
+         * @brief Constructor por defecto
+         * @post Inicializa la lista vacía con cabeza = nullptr
+         */
         ListaSensor() : cabeza(nullptr) {}
-        // Constructor de copia
+        
+        /**
+         * @brief Constructor de copia
+         * @param otra Referencia a la lista que se va a copiar
+         * @post Crea una copia profunda de la lista original
+         */
         ListaSensor(const ListaSensor<T>& otra) : cabeza(nullptr) {
             Nodo<T>* actual = otra.cabeza;
             while (actual != nullptr) {
@@ -26,7 +54,13 @@ class ListaSensor {
                 actual = actual->sig;
             }
         }
-        // Operador de asignación
+        
+        /**
+         * @brief Operador de asignación
+         * @param otra Referencia a la lista que se va a asignar
+         * @return Referencia a esta lista
+         * @post Libera la memoria actual y crea una copia de la otra lista
+         */
         ListaSensor<T>& operator=(const ListaSensor<T>& otra) {
             if (this != &otra) {
                 Nodo<T>* actual = cabeza;
@@ -45,7 +79,14 @@ class ListaSensor {
             }
             return *this;
         }
-        // Destructor que libera memoria de todos los nodos (hasta que encuentra nullptr)
+        
+        /**
+         * @brief Destructor de la lista
+         * @post Libera toda la memoria dinámica de los nodos
+         * 
+         * Recorre la lista eliminando cada nodo y liberando su memoria.
+         * Imprime mensajes de log para cada nodo destruido.
+         */
         ~ListaSensor() {
             Nodo<T>* actual = cabeza;
             while (actual != nullptr) {
@@ -55,29 +96,36 @@ class ListaSensor {
                 actual = sig;
             }
         }
-        // Inserción de un nuevo nodo al final de la lista
+        
+        /**
+         * @brief Inserta un nuevo elemento al final de la lista
+         * @param valor Valor a insertar en la lista
+         * @post Se agrega un nuevo nodo al final de la lista
+         */
         void insertar(T valor) {
             Nodo<T>* nuevoNodo = new Nodo<T>();
             nuevoNodo->dato = valor;
             nuevoNodo->sig = nullptr;
-            // Si la lista está vacía, se agrega como cabeza
+            
             if (cabeza == nullptr) {
                 cabeza = nuevoNodo;
             } else {
                 Nodo<T>* actual = cabeza;
-
                 while (actual->sig != nullptr) {
                     actual = actual->sig;
                 }
                 actual->sig = nuevoNodo;
-                // Log de inserción de nodo
                 std::cout << "Nodo insertado: " << valor << std::endl;
             }
         }
-        // Búsqueda de un valor en la lista
+        
+        /**
+         * @brief Busca un valor en la lista
+         * @param valor Valor a buscar
+         * @return true si el valor existe en la lista, false en caso contrario
+         */
         bool busqueda(T valor) {
             Nodo<T>* actual = cabeza;
-
             while (actual != nullptr) {
                 if(actual->dato == valor) {
                     return true;
@@ -86,22 +134,30 @@ class ListaSensor {
             }
             return false;
         }
-        // Cuenta los elementos en la lista hasta encontrar nullptr
+        
+        /**
+         * @brief Calcula el número de elementos en la lista
+         * @return Cantidad de nodos en la lista
+         */
         int obtenerTamanio() const {
             int contador = 0;
             Nodo<T>* actual = cabeza;
-
             while (actual != nullptr) {
                 contador++;
                 actual = actual->sig;
             }
             return contador;
         }
-        // Elimina el primer nodo que coincida con el valor dado
+        
+        /**
+         * @brief Elimina el primer nodo que contenga el valor especificado
+         * @param valor Valor a eliminar de la lista
+         * @return true si se eliminó el valor, false si no se encontró
+         * @post El nodo con el valor especificado es eliminado de la lista
+         */
         bool eliminarValor(T valor) {
-            // Si la lista está vacía, no hay nada que eliminar
             if (cabeza == nullptr) return false;
-            // Si el valor a eliminar está en la cabeza, se actualiza la cabeza
+            
             if (cabeza->dato == valor) {
                 Nodo<T>* temp = cabeza;
                 cabeza = cabeza->sig;
@@ -111,23 +167,26 @@ class ListaSensor {
             }
             
             Nodo<T>* actual = cabeza;
-            // Se busca el nodo anterior al que se quiere eliminar, hasta que se encuentra o se llega al final
             while (actual->sig != nullptr && actual->sig->dato != valor) {
                 actual = actual->sig;
             }
-            // Si se llega al final y no se encuenra el valor
+            
             if (actual->sig == nullptr) {
                 std::cout << "Valor no encontrado: " << valor << std::endl;
                 return false;
             }
-            // Si se encontro el valor, se elimina el nodo ajustando los punteros
+            
             Nodo<T>* temp = actual->sig;
             actual->sig = temp->sig;
             std::cout << "Nodo eliminado: " << temp->dato << std::endl;
             delete temp;
             return true;
         }
-        // Devuelve el puntero a la cabeza de la lista
+        
+        /**
+         * @brief Obtiene el puntero a la cabeza de la lista
+         * @return Puntero al primer nodo de la lista
+         */
         Nodo<T>* obtenerCabeza() const { return cabeza; }
 };
 
