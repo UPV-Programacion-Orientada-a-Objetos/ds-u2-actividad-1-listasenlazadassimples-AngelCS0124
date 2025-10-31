@@ -1,0 +1,17 @@
+# Build de CLion
+cmake-build-debug/
+
+# Archivos de CMake (excepto CMakeLists.txt)
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+*.cmake
+!CMakeLists.txt
+
+# Ejecutables
+SistemaIoT.exe
+
+# IDE
+.idea/
+
+.vscode/
