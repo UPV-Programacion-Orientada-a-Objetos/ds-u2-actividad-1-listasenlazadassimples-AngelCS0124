@@ -187,7 +187,6 @@ int main() {
     int opcion = 0;
     
     std::cout << "=== SISTEMA IoT DE MONITOREO POLIMORFICO ===" << std::endl;
-    std::cout << ">>> Entrada exclusiva por dispositivo ESP32 <<<" << std::endl;
     
     do {
         opcion = mostrarMenu();
